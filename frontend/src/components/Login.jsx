@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Asegúrate de importar el archivo CSS
 
 export default function Login() {
@@ -6,12 +7,48 @@ export default function Login() {
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+
   // Función que se ejecutará al presionar "Iniciar Sesión"
         const manejarLogin = (e) => {
-        e.preventDefault();
-        console.log("Intentando iniciar sesión con:", correo, password);
-        // Aquí es donde pondrás tu código fetch() hacia tu backend (localhost:3000/api/login)
-    };
+    e.preventDefault();
+
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if (!regexCorreo.test(correo)) {
+        alert("Por favor, ingresa un correo electrónico válido.");
+        return;
+    }
+
+    if (!regexPassword.test(password)) {
+        alert("La contraseña debe tener al menos 8 caracteres, incluyendo una letra y un número.");
+        return;
+    }
+    
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo, password })
+    })
+    .then(respuesta => {
+        if (!respuesta.ok) {
+            return respuesta.json().then(err => { throw new Error(err.error || "Error en el servidor") });
+        }
+        return respuesta.json();
+    })
+    .then(datos => {
+        if (datos.token) {
+            localStorage.setItem('token', datos.token);
+            alert("¡Bienvenido al sistema!");
+            navigate('/home');
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert(error.message);
+    });
+};
 
     return (
         <div className="login-wrapper">
@@ -19,13 +56,6 @@ export default function Login() {
             
             {/* Columna Izquierda: Formulario */}
             <div className="form-side">
-            <div className="logo">
-                <img 
-                src="https://via.placeholder.com/80x80/FFFFFF/2b6e82?text=Healy+Logo" 
-                alt="Logotipo de Healy" 
-                />
-            </div>
-            
             <h1>¡Bienvenido de vuelta!</h1>
             <p className="subtitle">Ingresa tus datos</p>
             
@@ -60,13 +90,7 @@ export default function Login() {
             <div className="register-link">
                 ¿No tienes cuenta? <a href="#">Regístrate</a>
             </div>
-            </div>
-            
-            {/* Columna Derecha: Imagen de Fondo */}
-            <div className="image-side">
-                {/* La imagen se maneja desde el CSS */}
-            </div>
-            
+            </div>    
         </div>
         </div>
     );
