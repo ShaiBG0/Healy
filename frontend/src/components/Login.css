@@ -1,0 +1,142 @@
+/* Importamos la fuente limpia que solicitaste */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+/* Un contenedor exterior para centrar todo en la pantalla de React */
+.login-wrapper {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  width: 900px;
+  max-width: 95%;
+  height: 600px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-side {
+  flex: 1;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  margin-bottom: 30px;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+.form-side h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #6c757d;
+  margin-bottom: 35px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  color: #000000;
+  box-sizing: border-box; /* Crucial en React para que el padding no rompa el ancho */
+}
+
+.form-group input::placeholder {
+  color: #adb5bd;
+}
+
+.form-side button {
+  width: 100%;
+  padding: 16px;
+  background-color: #2b6e82;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.form-side button:hover {
+  background-color: #215a6b;
+}
+
+.register-link {
+  text-align: center;
+  font-size: 13px;
+  color: #6c757d;
+  margin-top: 25px;
+}
+
+.register-link a {
+  color: #2b6e82;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Columna Derecha: Reemplaza la URL por la imagen real de tu proyecto */
+.image-side {
+  flex: 1;
+  background-image: url('https://images.unsplash.com/photo-1576091160550-2173ff9e5ee5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+  
+  .form-side {
+    padding: 40px 30px;
+  }
+  
+  .image-side {
+    height: 250px;
+    width: 100%;
+  }
+}
